@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>وصل استلام</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 30px;
+            background: white;
+            color: #000;
+        }
+        .receipt-container {
+            border: 2px solid #000;
+            padding: 30px;
+            max-width: 900px;
+            margin: auto;
+        }
+        .header {
+            text-align: center;
+        }
+        .header img {
+            float: right;
+            height: 60px;
+        }
+        h1 {
+            color: #00aaff;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        label {
+            display: inline-block;
+            width: 180px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        input {
+            width: 60%;
+            padding: 5px;
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #000;
+            text-align: center;
+        }
+        .note {
+            color: #00aaff;
+            margin-top: 20px;
+        }
+        .signatures {
+            margin-top: 40px;
+        }
+        .signatures div {
+            margin-bottom: 15px;
+        }
+        .print-btn {
+            margin-top: 30px;
+            display: block;
+            background: black;
+            color: white;
+            padding: 10px 30px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <form action="/submit" method="post" class="receipt-container">
+        <div class="header clearfix">
+            <img src="/static/logo.png" alt="Logo">
+            <h1>DELIVERY RECEIPT</h1>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Personal Details</div>
+            <label>Passenger Name:</label><input name="passenger_name"><br>
+            <label>Address:</label><input name="address"><br>
+            <label>Phone Number:</label><input name="phone_number" required><br><br>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Flight Details</div>
+            <label>Flight Date:</label><input type="date" name="flight_date"><br>
+            <label>Flight No.:</label><input name="flight_no"><br>
+            <label>Flight Route:</label><input name="flight_route"><br>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Baggage Details</div>
+            <label>Total Items & Weight:</label><input name="items_weight"><br>
+            <label>File No.:</label><input name="file_no" required><br><br>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Color</th>
+                        <th>Type</th>
+                        <th>Bag Tag</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input name="bag_color"></td>
+                        <td><input name="bag_type"></td>
+                        <td><input name="bag_tag" required><br><br>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="note">
+            I the undersigned, confirm receipt of the baggage, INTACT and in GOOD CONDITION.
+            I also declare that I have no further claim against the Airline.
+        </div>
+
+        <div class="signatures">
+            <div>
+                <label>Passenger Signature:</label><input name="signature">
+            </div>
+            <div>
+                <label>Receiving Date/Time:</label><input type="datetime-local" name="receiving_datetime" required><br><br>
+            </div>
+            <div>
+                <label>NAS Agent:</label><input name="nas_agent" required><br><br>
+            </div>
+            <div>
+                <label>Staff Number:</label><input name="staff_number" required><br><br>
+            </div>
+        </div>
+
+        <button type="submit" class="print-btn">حفظ وطباعة</button>
+    </form>
+
+    <script>
+        document.querySelector("form").addEventListener("submit", function() {
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        });
+    </script>
+<form method="GET" action="/records" class="search-form">
+    <label>بحث برقم الحقيبة:</label>
+    <input type="text" name="bag_tag" placeholder="أدخل رقم الحقيبة">
+    <button type="submit">بحث</button>
+</form>
+</body>
+</html>
